@@ -1,0 +1,34 @@
+1. 读取 record_ro 表添加的 jar 包：
+   hudi-spark-bundle_2.11-0.5.3.jar
+   到 hive 的 aux_lib 下
+
+2. 读取 record_ro 表添加的 jar 包：
+   parquet-hadoop-1.10.1.jar
+   parquet-common-1.10.1.jar
+   parquet-column-1.10.1.jar
+   parquet-format-2.4.0.jar
+
+
+
+beeline
+!connect jdbc:hive2://dev201:10000
+hdfs
+
+use kasa_warehouse;
+select * from parquet_test;
+select * from record_ro;
+select * from record_rt;
+
+存储类型
+
+我们看一下 Hudi 的两种存储类型：
+   1. 写时复制（copy on write）
+   仅使用列式文件（parquet）存储数据。
+   在写入/更新数据时，直接同步合并原文件，生成新版本的基文件（需要重写整个列数据文件，即使只有一个字节的新数据被提交）。
+   此存储类型下，写入数据非常昂贵，而读取的成本没有增加，所以适合频繁读的工作负载，
+   因为数据集的最新版本在列式文件中始终可用，以进行高效的查询。
+   2. 读时合并（merge on read）：
+   使用列式（parquet）与行式（avro）文件组合，进行数据存储。
+   在更新记录时，更新到增量文件中（avro），然后进行异步（或同步）的compaction，创建列式文件（parquet）的新版本。
+   此存储类型适合频繁写的工作负载，因为新记录是以appending 的模式写入增量文件中。
+   但是在读取数据集时，需要将增量文件与旧文件进行合并，生成列式文件。

@@ -3,7 +3,7 @@
 <configuration>
 <property>
   <name>javax.jdo.option.ConnectionURL</name>
-    <value>jdbc:mysql://192.168.1.103:3306/hive231?createDatabaseIfNotExist=true&amp;serverTimezone=UTC</value>
+    <value>jdbc:mysql://dev201:3306/hive4cdhDev?createDatabaseIfNotExist=true&amp;serverTimezone=UTC</value>
     <description>JDBC connect string for a JDBC metastore</description>
   </property>
   <property>
@@ -18,31 +18,10 @@
   </property>
   <property>
     <name>javax.jdo.option.ConnectionPassword</name>
-    <value>ysyhl9T</value>
+    <value>Mosh123456</value>
     <description>password to use against metastore database</description>
   </property> 
-  <property>
-    <name>hive.cli.print.header</name>
-    <value>true</value>
-    <description>Whether to print the names of the columns in query output.</description>
-    </property>
-  <property>
-    <name>hive.cli.print.current.db</name>
-    <value>true</value>
-    <description>Whether to include the current database in the Hive prompt.</description>
-  </property>
-  <property>
-    <name>hive.metastore.warehouse.dir</name>
-    <value>hdfs://kasa:9000/hive-2.3.1/warehouse</value>
-  </property>
-  <property>
-    <name>hive.exec.scratchdir</name>
-    <value>hdfs://kasa:9000/hive-2.3.1/scratchdir</value>
-  </property>
-  <property>
-    <name>hive.querylog.location</name>
-    <value>/kasa_logs/hive-2.3.1/logs</value>
-  </property>
+
 
   <!-- hive server2 config-->
   <property> 
@@ -57,5 +36,11 @@
     <name>hive.server2.enable.doAs</name>
     <value>false</value>
   </property>
+
+  <property>
+    <name>hive.metastore.uris</name>
+    <value>thrift://dev201:9083</value>
+  </property>
+
 </configuration>
 
