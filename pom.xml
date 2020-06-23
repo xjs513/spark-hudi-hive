@@ -14,7 +14,7 @@
         <scala.version>2.11</scala.version>
         <spark.version>2.4.3</spark.version>
         <hadoop.version>2.6.0</hadoop.version>
-        <hive.version>1.1.0</hive.version>
+        <hive.version>3.1.2</hive.version>
     </properties>
 
     <dependencies>
